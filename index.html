@@ -2,18 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale: 1.0">
-    <title>Interactive Image Movement</title>
+  <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0, user-scalable=yes">
+<title>Interactive Image Movement</title>
     <style>
-        body {
-            margin: 0;
-            overflow: hidden;
+        html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
             background-image: url('nightsky.jpg');
-            background-size: cover;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
+    align-items: center;/* Optional background color */
+}
+
+.container {
+    width: 1920px;
+    height: 1080px;
+    background-color: #fff; /* Optional background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional styling */
+}
+        
         #image-container {
             position: absolute;
             width: 150px; /* Updated width */
@@ -210,6 +220,9 @@
     </style>
 </head>
 <body>
+<div class="container">
+    <!-- Your website content goes here -->
+
 
     <div id="image-container"></div>
     <div id="target-image"></div>
@@ -241,7 +254,7 @@
 
     <!-- Countdown element -->
     <div id="countdown" style="display: none;"></div>
-
+</div>
     <script>
         const container = document.getElementById('image-container');
         const target = document.getElementById('target-image');
