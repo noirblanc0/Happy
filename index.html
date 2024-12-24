@@ -16,78 +16,68 @@
         }
         #image-container {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 150px; /* Updated width */
+            height: 150px; /* Updated height */
             background-size: cover;
         }
         #target-image {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 150px; /* Updated width */
+            height: 150px; /* Updated height */
             background-size: cover;
-            left: 10%;
-            top: 50%;
+            left: 20%; /* Adjusted position */
+            top: 60%; /* Moved to 55% */
             transform: translate(-50%, -50%);
             background-image: url('bench.png');
         }
         #new-image {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 150px; /* Updated width */
+            height: 150px; /* Updated height */
             background-size: cover;
-            left: 10%; /* Centered horizontally */
-            top: 40%; /* Position above the target image */
+            left: 20%; /* Adjusted position */
+            top: 40%; /* Remains at 40% */
             transform: translate(-50%, -50%);
-            background-image: url('wave1.gif'); /* New image (wave1) as a gif */
+            background-image: url('wave1.gif');
             visibility: hidden; /* Initially hidden */
         }
 
         #wave2-image {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 150px; /* Updated width */
+            height: 150px; /* Updated height */
             background-size: cover;
-            left: 10%; /* Centered horizontally */
-            top: 40%; /* Position below the target image */
+            left: 20%; /* Adjusted position */
+            top: 40%; /* Remains at 40% */
             transform: translate(-50%, -50%);
-            background-image: url('wave2.gif'); /* New image (wave2) */
+            background-image: url('wave2.gif');
             visibility: hidden; /* Initially hidden */
         }
 
         #wave3-image {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 150px; /* Updated width */
+            height: 150px; /* Updated height */
             background-size: cover;
-            left: 10%; /* Centered horizontally */
-            top: 40%; /* Position below the target image */
+            left: 20%; /* Adjusted position */
+            top: 40%; /* Remains at 40% */
             transform: translate(-50%, -50%);
-            background-image: url('wave3.gif'); /* New image (wave3) */
+            background-image: url('wave3.gif');
             visibility: hidden; /* Initially hidden */
         }
-        #wave5-image {
+
+        #wave4-image {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 150px; /* Updated width */
+            height: 150px; /* Updated height */
             background-size: cover;
-            left: 10%; /* Centered horizontally */
-            top: 40%; /* Position below the target image */
+            left: 20%; /* Adjusted position */
+            top: 40%; /* Remains at 40% */
             transform: translate(-50%, -50%);
-            background-image: url('wave5.gif'); /* New image (wave3) */
+            background-image: url('wave4.gif');
             visibility: hidden; /* Initially hidden */
         }
-        #wave6-image {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background-size: cover;
-            left: 10%; /* Centered horizontally */
-            top: 40%; /* Position below the target image */
-            transform: translate(-50%, -50%);
-            background-image: url('wave6.gif'); /* New image (wave3) */
-            visibility: hidden; /* Initially hidden */
-        }
-        
+
         /* Black screen at the bottom */
         #black-screen {
             position: fixed;
@@ -100,17 +90,17 @@
         }
 
         /* New text element inside black screen */
-#text-in-black-screen {
-    position: absolute;
-    bottom: 80px; /* Adjusted position from the bottom */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 24px;
-    color: white;
-    text-align: center;
-    z-index: 2;
-    opacity: 1;
-            animation: fadeOut 3s forwards;
+        .text-in-black-screen {
+            position: absolute;
+            bottom: 80px; /* Adjusted position from the bottom */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: white;
+            text-align: center;
+            z-index: 2;
+            opacity: 1;
+            animation: fadeInOut 6s forwards;
         }
 
         .fade-in-out {
@@ -123,8 +113,8 @@
     text-align: center;
     z-index: 2;
             opacity: 0;
-            animation: fadeInOut 6s forwards; /* 3s fade in, 3s fade out */
-            animation-delay: 3s; /* Delay after first text fades out */
+            animation: fadeInOut 8s forwards; /* 3s fade in, 3s fade out */
+            animation-delay: 7s; /* Delay after first text fades out */
         }
         .fade-in-out-2 {
             position: absolute;
@@ -136,8 +126,8 @@
             text-align: center;
             z-index: 2;
             opacity: 0;
-            animation: fadeInOut 6s forwards;
-            animation-delay: 9s; /* Delay after second text fades out */
+            animation: fadeInOut 8s forwards;
+            animation-delay: 16s; /* Delay after second text fades out */
         }
 
     @keyframes fadeOut {
@@ -221,22 +211,20 @@
 </head>
 <body>
 
-
     <div id="image-container"></div>
     <div id="target-image"></div>
     <div id="new-image"></div> <!-- New image (wave1.gif) -->
     <div id="wave2-image"></div> <!-- New image (wave2.gif) -->
     <div id="wave3-image"></div> <!-- New image (wave3.gif) -->
-    <div id="wave5-image"></div>
-    <div id="wave6-image"></div>
+    <div id="wave4-image"></div> <!-- New image (wave4.gif) -->
     
     <!-- Black Screen at the Bottom -->
-    <div id="black-screen"></div>
+    <div id ="black-screen"></div>
 
-<!-- New Text Inside the Black Screen -->
-<div id="text-in-black-screen">This is some text on the black screen</div>
-<div class="fade-in-out">This text fades in after the first text, and fades out after 3 seconds.</div>
-<div class="fade-in-out-2">This second text fades in after the first text, and fades out after 3 seconds.</div>
+    <!-- New Text Inside the Black Screen -->
+    <div class="text-in-black-screen">Good Morning! or Good Afternoon! or Good Evening!</div>
+    <div class="fade-in-out">Since I didn't have time to take you out and watch a fireworks as I said before,</div>
+    <div class="fade-in-out-2">Why not watch a virtual fireworks with me... and chill on this virtual cozy bench!</div>
 
     <!-- Arrow buttons -->
     <div id="arrow-buttons">
@@ -260,8 +248,7 @@
         const newImage = document.getElementById('new-image');
         const wave2Image = document.getElementById('wave2-image'); // wave2 image
         const wave3Image = document.getElementById('wave3-image'); // wave3 image
-        const wave5Image = document.getElementById('wave5-image'); // wave3 image
-        const wave6Image = document.getElementById('wave6-image'); // wave3 image
+        const wave4Image = document.getElementById('wave4-image'); // wave4 image
         const countdownDisplay = document.getElementById('countdown');
         const helloWorld = document.getElementById('hello-world');
         const movingImage = 'human.gif';
@@ -275,53 +262,40 @@
         window.onload = () => {
             wave2Image.style.visibility = 'visible';
 
-            // Fade in "Hello World" text
-            helloWorld.style.opacity = 1;
-
             // Hide the wave2 image after 5 seconds
             setTimeout(() => {
                 wave2Image.style.visibility = 'hidden';
             }, 5000);
 
-            // Fade out "Hello World" text after 2 seconds
-            setTimeout(() => {
-                helloWorld.style.opacity = 0;
-            }, 2000);
         };
 
-        let x = window.innerWidth - 75;
-        let y = window.innerHeight / 2 - 25;
+        let x = window.innerWidth - 170;
+        let y = window.innerHeight * 0.60 - 75; 
         let idleTimeout;
         let interactionOccurred = false;
         let movementInterval;
         let spacePressed = false;
 
-        let oneQuarterLeft = window.innerWidth * 0.75 - 25;
-        let oneQuarterRight = window.innerWidth * 0.75 + 25;
+        let oneQuarterLeft = window.innerWidth * 0.85 - 25;
+        let oneQuarterRight = window.innerWidth * 0.85 + 25;
 
-        let noneQuarterLeft = window.innerWidth * 0.15 - 25;
-        let noneQuarterRight = window.innerWidth * 0.15 + 25;
+        let noneQuarterLeft = window.innerWidth * 0.32 - 25;
+        let noneQuarterRight = window.innerWidth * 0.32 + 25;
 
-        let boneQuarterLeft = window.innerWidth * 0.17 - 25;
-        let boneQuarterRight = window.innerWidth * 0.17 + 25;
+        let boneQuarterLeft = window.innerWidth * 0.34 - 25;
+        let boneQuarterRight = window.innerWidth * 0.34 + 25;
 
-        let threeQuarterLeft = window.innerWidth * 0.70 - 25;
-        let threeQuarterRight = window.innerWidth * 0.70 + 25;
+        let threeQuarterLeft = window.innerWidth * 0.80 - 25;
+        let threeQuarterRight = window.innerWidth * 0.80 + 25;
 
-        let nthreeQuarterLeft = window.innerWidth * 0.72 - 25;
-        let nthreeQuarterRight = window.innerWidth * 0.72 + 25;
+        let nthreeQuarterLeft = window.innerWidth * 0.83 - 25;
+        let nthreeQuarterRight = window.innerWidth * 0.83 + 25;
 
-        let leastQuarterLeft = window.innerWidth * 0.25 - 25;
-        let leastQuarterRight = window.innerWidth * 0.25 + 25;
+        let LhalfQuarterLeft = window.innerWidth * 0.63 - 25;
+        let LhalfQuarterRight = window.innerWidth * 0.63 + 25;
 
-        let vleastQuarterLeft = window.innerWidth * 0.27 - 25;
-        let vleastQuarterRight = window.innerWidth * 0.27 + 25;
-
-        let halfQuarterLeft = window.innerWidth * 0.48 - 25;
-        let halfQuarterRight = window.innerWidth * 0.48 + 25;
-
-        let nhalfQuarterLeft = window.innerWidth * 0.5 - 25;
-        let nhalfQuarterRight = window.innerWidth * 0.5 + 25;
+        let RhalfQuarterLeft = window.innerWidth * 0.65 - 25;
+        let RhalfQuarterRight = window.innerWidth * 0.65 + 25;
 
         const updatePosition = () => {
             container.style.left = `${x}px`;
@@ -370,33 +344,22 @@
             }
 
             if (x >= noneQuarterLeft && x <= noneQuarterRight) {
-                wave6Image.style.visibility = 'hidden';
-                wave3Image.style.visibility = 'visible'; // Make the wave1.gif visible when at the center
+                wave3Image.style.visibility = 'hidden';
+                wave4Image.style.visibility = 'visible'; // Make the wave1.gif visible when at the center
             }
 
             if (x >= boneQuarterLeft && x <= boneQuarterRight) {
-                wave6Image.style.visibility = 'visible';
-                wave3Image.style.visibility = 'hidden'; // Make the wave1.gif visible when at the center
+                wave3Image.style.visibility = 'visible';
+                wave4Image.style.visibility = 'hidden'; // Make the wave1.gif visible when at the center
+            }
+            if (x >= RhalfQuarterLeft && x <= RhalfQuarterRight) {
+                wave3Image.style.visibility = 'hidden';
+                newImage.style.visibility = 'visible'; // Make the wave1.gif visible when at the center
             }
 
-            if (x >= leastQuarterLeft && x <= leastQuarterRight) {
-                wave5Image.style.visibility = 'hidden';
-                wave6Image.style.visibility = 'visible'; // Make the wave1.gif visible when at the center
-            }
-
-            if (x >= vleastQuarterLeft && x <= vleastQuarterRight) {
-                wave5Image.style.visibility = 'visible';
-                wave6Image.style.visibility = 'hidden'; // Make the wave1.gif visible when at the center
-            }
-
-            if (x >= halfQuarterLeft && x <= halfQuarterRight) {
-                wave5Image.style.visibility = 'hidden';
-                wave3Image.style.visibility = 'visible'; // Make the wave1.gif visible when at the center
-            }
-
-            if (x >= nhalfQuarterLeft && x <= nhalfQuarterRight) {
-                wave5Image.style.visibility = 'visible';
-                wave3Image.style.visibility = 'hidden'; // Make the wave1.gif visible when at the center
+            if (x >= LhalfQuarterLeft && x <= LhalfQuarterRight) {
+                wave3Image.style.visibility = 'visible';
+                newImage.style.visibility = 'hidden'; // Make the wave1.gif visible when at the center
             }
 
 
@@ -413,11 +376,11 @@ if (checkCollision()) {
     target.style.visibility = 'hidden';
 
     // Hide the 'wave1' image (new-image) after the collision
-    wave6Image.style.visibility = 'hidden';
+    wave4Image.style.visibility = 'hidden';
 
     setTimeout(() => {
         container.style.backgroundImage = `url(${transformedImage2})`;
-    }, 2000);
+    }, 200);
 
     // Hide the arrow buttons and spacebar button
     document.getElementById('arrow-buttons').style.display = 'none';
@@ -430,7 +393,7 @@ if (checkCollision()) {
     // Trigger the 10-second delay before showing new text
     setTimeout(() => {
         const newText = document.createElement('div');
-        newText.textContent = 'This is a new text appearing after 10 seconds!';
+        newText.textContent = 'Sorry, this was all a google image of fireworks xD';
         newText.style.position = 'absolute';
         newText.style.bottom = '80px'; // Adjusted position
         newText.style.left = '50%';
@@ -442,7 +405,23 @@ if (checkCollision()) {
         newText.style.opacity = '0'; // Initially hidden
         newText.style.animation = 'fadeInOut 6s forwards'; // Fade in and out animation
         document.body.appendChild(newText);
-    }, 20000); // New text appears after 10 seconds
+    }, 18000); // New text appears after 10 seconds
+
+    setTimeout(() => {
+        const newText = document.createElement('div');
+        newText.textContent = 'Anyway, enjoy chill here and there. Happy Holiday! and Merry Christmas!';
+        newText.style.position = 'absolute';
+        newText.style.bottom = '80px'; // Adjusted position
+        newText.style.left = '50%';
+        newText.style.transform = 'translateX(-50%)';
+        newText.style.fontSize = '24px';
+        newText.style.color = 'white';
+        newText.style.textAlign = 'center';
+        newText.style.zIndex = '2';
+        newText.style.opacity = '0'; // Initially hidden
+        newText.style.animation = 'fadeInOut 8s forwards'; // Fade in and out animation
+        document.body.appendChild(newText);
+    }, 28000); // New text appears after 10 seconds
 
     setTimeout(startCountdownAndBackgroundChange, 1500);
 }
