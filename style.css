@@ -1,0 +1,22 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+#container {
+    position: relative;
+    width: 800px; /* Set your desired width */
+    height: 600px; /* Set your desired height */
+    overflow: hidden;
+}
+
+#movingImage {
+    position: absolute;
+    width: 100px; /* Set your desired image width */
+    height: auto; /* Maintain aspect ratio */
+    transition: opacity 0.5s;
+}

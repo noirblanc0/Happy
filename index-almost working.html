@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Movement</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-image: url('nightsky.jpg'); /* Background image */
+            background-size: cover;
+        }
+        #image-container {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+        }
+        #target-image {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            left: 10%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-image: url('bench.png'); /* Target image */
+        }
+    </style>
+</head>
+<body>
+    <div id="image-container"></div>
+    <div id="target-image"></div>
+
+    <script>
+        const container = document.getElementById('image-container');
+        const target = document.getElementById('target-image');
+        const movingImage = 'human.gif'; // Moving image
+        const idleImage = 'scratch.gif';   // Idle image
+        const transformedImage = 'cursor.png'; // Transformed image
+        const transformedImage2 = 'human.gif    '; // Second transformed image
+
+        let x = window.innerWidth / 2 - 25; // Start at center horizontally
+        let y = window.innerHeight / 2 - 25; // Start at center vertically
+        let idleTimeout;
+        let interactionOccurred = false; // Flag to track interaction
+
+        // Function to update image position
+        const updatePosition = () => {
+            container.style.left = `${x}px`;
+            container.style.top = `${y}px`;
+        };
+
+        // Function to switch to idle image
+        const switchToIdle = () => {
+            if (!interactionOccurred) {
+                container.style.backgroundImage = `url(${idleImage})`;
+            }
+        };
+
+        // Function to check collision
+        const checkCollision = () => {
+            const containerRect = container.getBoundingClientRect();
+            const targetRect = target.getBoundingClientRect();
+
+            return !(
+                containerRect.right < targetRect.left ||
+                containerRect.left > targetRect.right ||
+                containerRect.bottom < targetRect.top ||
+                containerRect.top > targetRect.bottom
+            );
+        };
+
+        // Event listener for key presses
+        document.addEventListener('keydown', (event) => {
+            if (interactionOccurred) {
+                // Stop movement if interaction has occurred
+                return;
+            }
+
+            const step = 10; // Step size
+            let prevX = x;
+            let prevY = y;
+
+            switch (event.key) {
+                case 'ArrowUp':
+                    y = Math.max(0, y - step);
+                    break;
+                case 'ArrowDown':
+                    y = Math.min(window.innerHeight - 50, y + step);
+                    break;
+                case 'ArrowLeft':
+                    x = Math.max(0, x - step);
+                    break;
+                case 'ArrowRight':
+                    x = Math.min(window.innerWidth - 50, x + step);
+                    break;
+            }
+
+            // Temporarily update position to check for collision
+            updatePosition();
+
+            if (checkCollision()) {
+                // Interaction occurs
+                interactionOccurred = true;
+
+                // Get the target's position
+                const targetRect = target.getBoundingClientRect();
+                const targetX = targetRect.left;
+                const targetY = targetRect.top;
+
+                // Transform the image and position it at the target's location
+                container.style.backgroundImage = `url(${transformedImage})`;
+                container.style.left = `${targetX}px`;
+                container.style.top = `${targetY}px`;
+
+                // Hide the target image
+                target.style.visibility = 'hidden';
+
+                // Replace with transformedImage2 after a delay
+                setTimeout(() => {
+                    container.style.backgroundImage = `url(${transformedImage2})`;
+                }, 2000); // Delay in milliseconds (e.g., 2000ms = 2 seconds)
+            } else {
+                // Reset the idle image timeout if no collision
+                container.style.backgroundImage = `url(${movingImage})`;
+                clearTimeout(idleTimeout);
+                idleTimeout = setTimeout(switchToIdle, 1000); // Switch to idle after 1 second
+            }
+        });
+
+        // Initialize position and set idle image
+        updatePosition();
+        switchToIdle();
+    </script>
+</body>
+</html>

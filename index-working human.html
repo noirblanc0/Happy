@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Movement</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #image-container {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="image-container"></div>
+
+    <script>
+        const container = document.getElementById('image-container');
+        const movingImage = 'human.gif'; // Moving image
+        const idleImage = 'scratch.gif';   // Idle image
+
+        let x = window.innerWidth / 2 - 25; // Start at center horizontally
+        let y = window.innerHeight / 2 - 25; // Start at center vertically
+        let idleTimeout;
+
+        // Function to update image position
+        const updatePosition = () => {
+            container.style.left = `${x}px`;
+            container.style.top = `${y}px`;
+        };
+
+        // Function to switch to idle image
+        const switchToIdle = () => {
+            container.style.backgroundImage = `url(${idleImage})`;
+        };
+
+        // Event listener for key presses
+        document.addEventListener('keydown', (event) => {
+            const step = 10; // Step size
+            switch (event.key) {
+                case 'ArrowUp':
+                    y = Math.max(0, y - step);
+                    break;
+                case 'ArrowDown':
+                    y = Math.min(window.innerHeight - 50, y + step);
+                    break;
+                case 'ArrowLeft':
+                    x = Math.max(0, x - step);
+                    break;
+                case 'ArrowRight':
+                    x = Math.min(window.innerWidth - 50, x + step);
+                    break;
+            }
+            updatePosition();
+
+            // Reset the idle image timeout
+            container.style.backgroundImage = `url(${movingImage})`;
+            clearTimeout(idleTimeout);
+            idleTimeout = setTimeout(switchToIdle, 1000); // Switch to idle after 1 second
+        });
+
+        // Initialize position and set idle image
+        updatePosition();
+        switchToIdle();
+    </script>
+</body>
+</html>

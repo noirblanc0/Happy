@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #000; /* Black background for the night sky */
+    color: #fff;
+    overflow: hidden; /* Prevent scroll bars */
+}
+
+#canvas {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url('nightsky.jpg') no-repeat center center; /* Add your night sky image */
+    background-size: cover;
+}
+
+.bench {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 100px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    background: url('bench.png') no-repeat center center; /* Add your bench image */
+    background-size: cover;
+    cursor: pointer;
+}
+
+.human-icon {
+    position: absolute;
+    bottom: 100px;
+    left: 20px;
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    background: url('human.gif') no-repeat center center; /* Add your human icon image */
+    background-size: cover;
+    cursor: pointer;
+}
+
+.countdown {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    display: none; /* Hidden initially */
+}
+
+.message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    display: none; /* Hidden initially */
+}

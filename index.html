@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Movement</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-image: url('nightsky.jpg');
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        #image-container {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+        }
+        #target-image {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            left: 10%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-image: url('bench.png');
+        }
+        #new-image {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            left: 10%; /* Centered horizontally */
+            top: 40%; /* Position above the target image */
+            transform: translate(-50%, -50%);
+            background-image: url('wave1.gif'); /* New image (wave1) as a gif */
+            visibility: hidden; /* Initially hidden */
+        }
+
+        #wave2-image {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            left: 10%; /* Centered horizontally */
+            top: 40%; /* Position below the target image */
+            transform: translate(-50%, -50%);
+            background-image: url('wave2.gif'); /* New image (wave2) */
+            visibility: hidden; /* Initially hidden */
+        }
+
+        #wave3-image {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            left: 10%; /* Centered horizontally */
+            top: 40%; /* Position below the target image */
+            transform: translate(-50%, -50%);
+            background-image: url('wave3.gif'); /* New image (wave3) */
+            visibility: hidden; /* Initially hidden */
+        }
+        
+        /* Black screen at the bottom */
+        #black-screen {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20%; /* 10% height from the bottom */
+            background-color: black;
+            z-index: 1;
+        }
+
+        /* New text element inside black screen */
+#text-in-black-screen {
+    position: absolute;
+    bottom: 80px; /* Adjusted position from the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    z-index: 2;
+    opacity: 1;
+            animation: fadeOut 3s forwards;
+        }
+
+        .fade-in-out {
+            position: absolute;
+    bottom: 80px; /* Adjusted position from the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    z-index: 2;
+            opacity: 0;
+            animation: fadeInOut 6s forwards; /* 3s fade in, 3s fade out */
+            animation-delay: 3s; /* Delay after first text fades out */
+        }
+        .fade-in-out-2 {
+            position: absolute;
+            bottom: 80px; /* Adjusted position from the bottom */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            color: white;
+            text-align: center;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeInOut 6s forwards;
+            animation-delay: 9s; /* Delay after second text fades out */
+        }
+
+    @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+}}
+@keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1; /* Full opacity at the halfway point (3s) */
+            }
+            100% {
+                opacity: 0; /* Fade out to 0 by the end of 6s */
+            }
+        }
+
+        /* Adjust button container position */
+        #arrow-buttons, #spacebar-button {
+            position: fixed;
+            bottom: 22%; /* Above the black screen */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            z-index: 2;
+        }
+        #arrow-buttons {
+            right: 20px;
+        }
+        #spacebar-button {
+            left: 20px;
+        }
+
+        .arrow-row {
+            display: flex;
+            gap: 5px;
+        }
+        .spacebar-button {
+            width: 80px;
+            height: 60px;
+            font-size: 25px;
+        }
+        .arrow-button {
+            width: 60px;
+            height: 60px;
+            font-size: 40px;
+        }
+        .arrow-button, .spacebar-button {
+            background-color: #fff;
+            border: 2px solid #000;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .arrow-button:active, .spacebar-button:active {
+            background-color: #ccc;
+        }
+
+        /* Countdown display style */
+        #countdown {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+            z-index: 100;
+        }
+
+        
+    </style>
+</head>
+<body>
+
+
+    <div id="image-container"></div>
+    <div id="target-image"></div>
+    <div id="new-image"></div> <!-- New image (wave1.gif) -->
+    <div id="wave2-image"></div> <!-- New image (wave2.gif) -->
+    <div id="wave3-image"></div> <!-- New image (wave3.gif) -->
+    
+    <!-- Black Screen at the Bottom -->
+    <div id="black-screen"></div>
+
+<!-- New Text Inside the Black Screen -->
+<div id="text-in-black-screen">This is some text on the black screen</div>
+<div class="fade-in-out">This text fades in after the first text, and fades out after 3 seconds.</div>
+<div class="fade-in-out-2">This second text fades in after the first text, and fades out after 3 seconds.</div>
+
+    <!-- Arrow buttons -->
+    <div id="arrow-buttons">
+        <div class="arrow-row">
+            <div class="arrow-button" id="arrow-left">←</div>
+            <div class="arrow-button" id="arrow-right">→</div>
+        </div>
+    </div>
+
+    <!-- Spacebar button -->
+    <div id="spacebar-button">
+        <div class="spacebar-button" id="spacebar-btn">Wave</div>
+    </div>
+
+    <!-- Countdown element -->
+    <div id="countdown" style="display: none;"></div>
+
+    <script>
+        const container = document.getElementById('image-container');
+        const target = document.getElementById('target-image');
+        const newImage = document.getElementById('new-image');
+        const wave2Image = document.getElementById('wave2-image'); // wave2 image
+        const wave3Image = document.getElementById('wave3-image'); // wave3 image
+        const countdownDisplay = document.getElementById('countdown');
+        const helloWorld = document.getElementById('hello-world');
+        const movingImage = 'human.gif';
+        const idleImage = 'scratch.gif';
+        const transformedImage = 'bench.png';
+        const transformedImage2 = 'human.gif';
+        const handsUpImage = 'ai.gif';
+        const kunoImage = 'kuno.gif';
+
+        // Show the wave2 image when the page loads
+        window.onload = () => {
+            wave2Image.style.visibility = 'visible';
+
+            // Fade in "Hello World" text
+            helloWorld.style.opacity = 1;
+
+            // Hide the wave2 image after 5 seconds
+            setTimeout(() => {
+                wave2Image.style.visibility = 'hidden';
+            }, 5000);
+
+            // Fade out "Hello World" text after 2 seconds
+            setTimeout(() => {
+                helloWorld.style.opacity = 0;
+            }, 2000);
+        };
+
+        let x = window.innerWidth - 75;
+        let y = window.innerHeight / 2 - 25;
+        let idleTimeout;
+        let interactionOccurred = false;
+        let movementInterval;
+        let spacePressed = false;
+
+        let oneQuarterLeft = window.innerWidth * 0.75 - 25;
+        let oneQuarterRight = window.innerWidth * 0.75 + 25;
+
+        let noneQuarterLeft = window.innerWidth * 0.15 - 25;
+        let noneQuarterRight = window.innerWidth * 0.15 + 25;
+
+        let boneQuarterLeft = window.innerWidth * 0.17 - 25;
+        let boneQuarterRight = window.innerWidth * 0.17 + 25;
+
+        let threeQuarterLeft = window.innerWidth * 0.70 - 25;
+        let threeQuarterRight = window.innerWidth * 0.70 + 25;
+
+        let nthreeQuarterLeft = window.innerWidth * 0.72 - 25;
+        let nthreeQuarterRight = window.innerWidth * 0.72 + 25;
+
+        const updatePosition = () => {
+            container.style.left = `${x}px`;
+            container.style.top = `${y}px`;
+        };
+
+        const switchToIdle = () => {
+            if (!interactionOccurred && !spacePressed) {
+                container.style.backgroundImage = `url(${idleImage})`;
+            }
+        };
+
+        const checkCollision = () => {
+            const containerRect = container.getBoundingClientRect();
+            const targetRect = target.getBoundingClientRect();
+            return !(containerRect.right < targetRect.left ||
+                containerRect.left > targetRect.right ||
+                containerRect.bottom < targetRect.top ||
+                containerRect.top > targetRect.bottom);
+        };
+
+        const move = (direction) => {
+            if (interactionOccurred) return;
+            const step = 20;
+            switch (direction) {
+                case 'left':
+                    x = Math.max(0, x - step);
+                    break;
+                case 'right':
+                    x = Math.min(window.innerWidth - 50, x + step);
+                    break;
+            }
+            updatePosition();
+
+            // Check if the moving image reaches the center of the screen (around the middle of the window)
+            if (x >= threeQuarterLeft && x <= threeQuarterRight) {
+                newImage.style.visibility = 'visible'; // Make the wave1.gif visible when at the center
+            }
+
+            if (x >= nthreeQuarterLeft && x <= nthreeQuarterRight) {
+                wave2Image.style.visibility = 'hidden'; // Make the wave1.gif visible when at the center
+            }
+
+            if (x >= oneQuarterLeft && x <= oneQuarterRight) {
+                newImage.style.visibility = 'hidden'; // Make the wave1.gif visible when at the center
+            }
+
+            if (x >= noneQuarterLeft && x <= noneQuarterRight) {
+                newImage.style.visibility = 'hidden';
+                wave3Image.style.visibility = 'visible'; // Make the wave1.gif visible when at the center
+            }
+
+            if (x >= boneQuarterLeft && x <= boneQuarterRight) {
+                newImage.style.visibility = 'visible';
+                wave3Image.style.visibility = 'hidden'; // Make the wave1.gif visible when at the center
+            }
+
+
+            // Modify this part where the collision is detected:
+if (checkCollision()) {
+    interactionOccurred = true;
+    const targetRect = target.getBoundingClientRect();
+    const targetX = targetRect.left;
+    const targetY = targetRect.top;
+
+    container.style.backgroundImage = `url(${transformedImage})`;
+    container.style.left = `${targetX}px`;
+    container.style.top = `${targetY}px`;
+    target.style.visibility = 'hidden';
+
+    // Hide the 'wave1' image (new-image) after the collision
+    wave3Image.style.visibility = 'hidden';
+
+    setTimeout(() => {
+        container.style.backgroundImage = `url(${transformedImage2})`;
+    }, 2000);
+
+    // Hide the arrow buttons and spacebar button
+    document.getElementById('arrow-buttons').style.display = 'none';
+    document.getElementById('spacebar-button').style.display = 'none';
+    document.removeEventListener('keydown', handleKeyDown);
+    document.removeEventListener('keyup', handleKeyUp);
+    document.getElementById('spacebar-btn').removeEventListener('mousedown', handleSpacebarButtonDown);
+    document.getElementById('spacebar-btn').removeEventListener('mouseup', handleSpacebarButtonUp);
+
+    // Trigger the 10-second delay before showing new text
+    setTimeout(() => {
+        const newText = document.createElement('div');
+        newText.textContent = 'This is a new text appearing after 10 seconds!';
+        newText.style.position = 'absolute';
+        newText.style.bottom = '80px'; // Adjusted position
+        newText.style.left = '50%';
+        newText.style.transform = 'translateX(-50%)';
+        newText.style.fontSize = '24px';
+        newText.style.color = 'white';
+        newText.style.textAlign = 'center';
+        newText.style.zIndex = '2';
+        newText.style.opacity = '0'; // Initially hidden
+        newText.style.animation = 'fadeInOut 6s forwards'; // Fade in and out animation
+        document.body.appendChild(newText);
+    }, 20000); // New text appears after 10 seconds
+
+    setTimeout(startCountdownAndBackgroundChange, 1500);
+}
+
+        };
+
+        const handleKeyDown = (event) => {
+            switch (event.key) {
+                case 'ArrowLeft':
+                    move('left');
+                    break;
+                case 'ArrowRight':
+                    move('right');
+                    break;
+                case ' ':
+                    spacePressed = true;
+                    container.style.backgroundImage = `url(${handsUpImage})`;
+                    target.style.backgroundImage = `url(${kunoImage})`;
+                    break;
+            }
+        };
+
+        const handleKeyUp = (event) => {
+            if (event.key === ' ') {
+                spacePressed = false;
+                switchToIdle();
+                target.style.backgroundImage = `url(${transformedImage})`;
+            }
+        };
+
+        const startMovement = (direction) => {
+            move(direction);
+            movementInterval = setInterval(() => move(direction), 100);
+        };
+
+        const stopMovement = () => {
+            clearInterval(movementInterval);
+        };
+
+        document.getElementById('arrow-left').addEventListener('mousedown', () => startMovement('left'));
+        document.getElementById('arrow-right').addEventListener('mousedown', () => startMovement('right'));
+
+        document.addEventListener('mouseup', stopMovement);
+        document.addEventListener('mouseleave', stopMovement);
+
+        updatePosition();
+        switchToIdle();
+
+        const handleSpacebarButtonDown = () => {
+            spacePressed = true;
+            container.style.backgroundImage = `url(${handsUpImage})`;
+            target.style.backgroundImage = `url(${kunoImage})`;
+        };
+
+        const handleSpacebarButtonUp = () => {
+            spacePressed = false;
+            switchToIdle();
+            target.style.backgroundImage = `url(${transformedImage})`;
+        };
+
+        document.getElementById('spacebar-btn').addEventListener('mousedown', handleSpacebarButtonDown);
+        document.getElementById('spacebar-btn').addEventListener('mouseup', handleSpacebarButtonUp);
+
+        container.addEventListener('click', () => {
+            if (!spacePressed) {
+                container.style.backgroundImage = `url(${handsUpImage})`;
+                spacePressed = true;
+            }
+        });
+
+        document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('keyup', handleKeyUp);
+
+        let countdownTime = 5;
+        const startCountdownAndBackgroundChange = () => {
+            countdownDisplay.style.display = 'block';
+            let backgroundImages = [
+                'fireworks.gif', 'fireworks2.gif', 'fireworks3.gif', 'fireworks4.gif', 'fireworks5.gif',
+                'fireworks6.gif', 'fireworks7.gif', 'fireworks8.gif', 'fireworks9.gif', 'fireworks10.gif'
+            ];
+
+            const countdownInterval = setInterval(() => {
+                countdownDisplay.textContent = countdownTime;
+                countdownTime--;
+
+                if (countdownTime < 0) {
+                    clearInterval(countdownInterval);
+                    changeBackgrounds(backgroundImages);
+                    countdownDisplay.style.display = 'none';
+                }
+            }, 1000);
+        };
+
+        const changeBackgrounds = (backgroundImages) => {
+            let index = 0;
+            const changeInterval = setInterval(() => {
+                if (index >= backgroundImages.length) {
+                    clearInterval(changeInterval);
+                    document.body.style.backgroundImage = 'url(nightsky.jpg)';
+                } else {
+                    document.body.style.backgroundImage = `url(${backgroundImages[index]})`;
+                    index++;
+                }
+            }, 3000);
+        };
+    </script>
+</body>
+</html>
