@@ -65,6 +65,28 @@
             background-image: url('wave3.gif'); /* New image (wave3) */
             visibility: hidden; /* Initially hidden */
         }
+        #wave5-image {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            left: 10%; /* Centered horizontally */
+            top: 40%; /* Position below the target image */
+            transform: translate(-50%, -50%);
+            background-image: url('wave5.gif'); /* New image (wave3) */
+            visibility: hidden; /* Initially hidden */
+        }
+        #wave6-image {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: cover;
+            left: 10%; /* Centered horizontally */
+            top: 40%; /* Position below the target image */
+            transform: translate(-50%, -50%);
+            background-image: url('wave6.gif'); /* New image (wave3) */
+            visibility: hidden; /* Initially hidden */
+        }
         
         /* Black screen at the bottom */
         #black-screen {
@@ -205,6 +227,8 @@
     <div id="new-image"></div> <!-- New image (wave1.gif) -->
     <div id="wave2-image"></div> <!-- New image (wave2.gif) -->
     <div id="wave3-image"></div> <!-- New image (wave3.gif) -->
+    <div id="wave5-image"></div>
+    <div id="wave6-image"></div>
     
     <!-- Black Screen at the Bottom -->
     <div id="black-screen"></div>
@@ -236,6 +260,8 @@
         const newImage = document.getElementById('new-image');
         const wave2Image = document.getElementById('wave2-image'); // wave2 image
         const wave3Image = document.getElementById('wave3-image'); // wave3 image
+        const wave5Image = document.getElementById('wave5-image'); // wave3 image
+        const wave6Image = document.getElementById('wave6-image'); // wave3 image
         const countdownDisplay = document.getElementById('countdown');
         const helloWorld = document.getElementById('hello-world');
         const movingImage = 'human.gif';
@@ -285,6 +311,18 @@
         let nthreeQuarterLeft = window.innerWidth * 0.72 - 25;
         let nthreeQuarterRight = window.innerWidth * 0.72 + 25;
 
+        let leastQuarterLeft = window.innerWidth * 0.25 - 25;
+        let leastQuarterRight = window.innerWidth * 0.25 + 25;
+
+        let leastQuarterLeft = window.innerWidth * 0.27 - 25;
+        let leastQuarterRight = window.innerWidth * 0.27 + 25;
+
+        let halfQuarterLeft = window.innerWidth * 0.48 - 25;
+        let halfQuarterRight = window.innerWidth * 0.48 + 25;
+
+        let halfQuarterLeft = window.innerWidth * 0.5 - 25;
+        let halfQuarterRight = window.innerWidth * 0.5 + 25;
+
         const updatePosition = () => {
             container.style.left = `${x}px`;
             container.style.top = `${y}px`;
@@ -332,12 +370,32 @@
             }
 
             if (x >= noneQuarterLeft && x <= noneQuarterRight) {
-                newImage.style.visibility = 'hidden';
+                wave6Image.style.visibility = 'hidden';
                 wave3Image.style.visibility = 'visible'; // Make the wave1.gif visible when at the center
             }
 
             if (x >= boneQuarterLeft && x <= boneQuarterRight) {
-                newImage.style.visibility = 'visible';
+                wave6Image.style.visibility = 'visible';
+                wave3Image.style.visibility = 'hidden'; // Make the wave1.gif visible when at the center
+            }
+
+            if (x >= leastQuarterLeft && x <= leastQuarterRight) {
+                wave5Image.style.visibility = 'hidden';
+                wave6Image.style.visibility = 'visible'; // Make the wave1.gif visible when at the center
+            }
+
+            if (x >= vleastQuarterLeft && x <= vleastQuarterRight) {
+                wave5Image.style.visibility = 'visible';
+                wave6Image.style.visibility = 'hidden'; // Make the wave1.gif visible when at the center
+            }
+
+            if (x >= halfQuarterLeft && x <= halfQuarterRight) {
+                wave5Image.style.visibility = 'hidden';
+                wave3Image.style.visibility = 'visible'; // Make the wave1.gif visible when at the center
+            }
+
+            if (x >= nhalfQuarterLeft && x <= nhalfQuarterRight) {
+                wave5Image.style.visibility = 'visible';
                 wave3Image.style.visibility = 'hidden'; // Make the wave1.gif visible when at the center
             }
 
@@ -355,7 +413,7 @@ if (checkCollision()) {
     target.style.visibility = 'hidden';
 
     // Hide the 'wave1' image (new-image) after the collision
-    wave3Image.style.visibility = 'hidden';
+    wave6Image.style.visibility = 'hidden';
 
     setTimeout(() => {
         container.style.backgroundImage = `url(${transformedImage2})`;
